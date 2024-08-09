@@ -1,4 +1,7 @@
 from django import forms 
+from .models import Blogs
 
 class BlogForm(forms.ModelForm):
-    pass
+    class Meta:
+        model = Blogs
+        fields = "__all__"

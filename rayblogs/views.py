@@ -24,7 +24,7 @@ def signin(request):
         Username=request.POST.get("Uname")
         password=request.POST.get("pass")
 
-        Updata=Users.objects.create(first_name=fname,last_name=lname,email=email,phone_number=phone_num,user_name=Username,password=password)
+        Updata=Users(first_name=fname,last_name=lname,email=email,phone_number=phone_num,user_name=Username,password=password)
         Updata.save()
         
         return HttpResponseRedirect("/")

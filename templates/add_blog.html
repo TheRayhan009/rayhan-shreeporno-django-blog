@@ -1,0 +1,14 @@
+{% extends "all.html" %}
+
+{% block titel %} Add Blog {% endblock titel %}
+
+{% block main-body %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-6">Add a New Blog</h1>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary mt-4">Add Blog</button>
+    </form>
+</div>
+{% endblock main-body %}
