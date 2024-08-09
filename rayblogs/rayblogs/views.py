@@ -71,7 +71,7 @@ def search(request):
 
 def blog(request):
     data=Blogs.objects.all()
-    page=Paginator(data,1)
+    page=Paginator(data,12)
     x=request.GET.get("page")
     filan=page.get_page(x)
     
