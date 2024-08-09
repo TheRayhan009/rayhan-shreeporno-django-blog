@@ -1,0 +1,162 @@
+{% extends "all.html" %}
+{% block titel %}
+
+Search
+
+{% endblock titel %}
+
+{% block css %}
+
+<style>
+
+    .blog-post {
+        -webkit-transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0s;
+        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0s;
+      }
+      
+      .blog-post .blog-img {
+        position: relative;
+        min-height: 300px; /* Set your desired minimum height here */
+        max-height: 500px; /* Set your desired maximum height here */
+        overflow: hidden;
+      }
+  
+      .blog-post .blog-img img {
+        width: 100%;
+        height: 100%;
+        max-height: 300px;
+        min-height: 300px;
+        object-fit: cover; /* Ensure the image covers the area */
+      }
+  
+      .blog-post .blog-img .overlay,
+      .blog-post .blog-img .post-meta {
+        position: absolute;
+        opacity: 0;
+        -webkit-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+      }
+      
+      .blog-post .blog-img .overlay {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+      
+      .blog-post .blog-img .post-meta {
+        bottom: 5%;
+        right: 5%;
+        z-index: 1;
+      }
+      
+      .blog-post .blog-img .post-meta .read-more:hover {
+        color: #6dc77a !important;
+      }
+      
+      .blog-post .content h1, .blog-post .content h2, .blog-post .content h3, .blog-post .content h4, .blog-post .content h5, .blog-post .content h6 {
+        line-height: 1.2;
+      }
+      
+      .blog-post .content .title {
+        font-size: 18px;
+      }
+      
+      .blog-post .content .title:hover {
+        color: #6dc77a !important;
+      }
+      
+      .blog-post .content .author .name:hover {
+        color: #6dc77a !important;
+      }
+      
+      .blog-post:hover {
+        -webkit-transform: translateY(-7px);
+                transform: translateY(-7px);
+        -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+      }
+      
+      .blog-post:hover .blog-img .overlay {
+        opacity: 0.65;
+      }
+      
+      .blog-post:hover .blog-img .post-meta {
+        opacity: 1;
+      }
+      
+      .blog-post .post-meta .like i,
+      .profile-post .like i {
+        -webkit-text-stroke: 2px #dd2427;
+        -webkit-text-fill-color: transparent;
+      }
+      
+      .blog-post .post-meta .like:active i, .blog-post .post-meta .like:focus i,
+      .profile-post .like:active i,
+      .profile-post .like:focus i {
+        -webkit-text-stroke: 0px #dd2427;
+        -webkit-text-fill-color: #dd2427;
+      }
+      
+      .avatar.avatar-ex-sm {
+          height: 36px;
+      }
+      .shadow {
+          -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15) !important;
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.15) !important;
+      }
+      
+      .text-muted {
+          color: #8492a6 !important;
+      }
+      
+      
+      .para-desc {
+          max-width: 600px;
+      }
+      .text-muted {
+          color: #8492a6 !important;
+      }
+      
+      .section-title .title {
+          letter-spacing: 0.5px;
+          font-size: 30px;
+      }
+
+</style>
+
+{% endblock css %}
+
+{% block main-body %}
+
+{% csrf_token %}
+
+
+
+<div class="container mt-100 mt-60">    
+    <div class="row">
+        {% for item in data %}
+        <div class="col-lg-4 col-md-6 mt-4 pt-2">
+            <div class="blog-post rounded border">
+                <div class="blog-img d-block overflow-hidden position-relative">
+                    <img src="/media/{{item.post_image}}" class="img-fluid rounded-top" alt="" >
+                    <div class="overlay rounded-top bg-dark" ></div>
+                </div>
+                <div class="content p-3">
+                    <small class="text-muted p float-right">{{item.date_of_post}}</small>
+                    <small><a href="javascript:void(0)" class="text-primary">{{item.post_category}}</a></small>
+                    <h4 class="mt-2"><a href="/blog/{{item.A_slug}}" class="text-dark title"><h5>{{item.titel|slice:":30"}}....</h5></a></h4>
+                    <p class="text-muted mt-2">{{item.post_blog|slice:"0:35"}}<b style="color:rgb(4, 0, 255);">....</b></p>
+                    <div class="pt-3 mt-3 border-top d-flex">
+                        <img src="{{item.post_user_image}}" class="img-fluid avatar avatar-ex-sm rounded-pill mr-3 shadow" alt="">
+                        <div class="author mt-2">
+                            <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark name">{{item.post_user_name}}</a></h6>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end blog post-->
+        </div><!--end col-->
+        {% endfor %}
+  </div>
+
+{% endblock main-body %}
