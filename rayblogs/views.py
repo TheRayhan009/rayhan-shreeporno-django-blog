@@ -3,7 +3,7 @@ from django.http import HttpResponse ,HttpResponseRedirect
 from blogs.models import Blogs
 from django.core.paginator import Paginator
 from signin.models import Users
-
+from userBlogs.models import UBlog
 
 
 # def all(request):
@@ -20,7 +20,7 @@ def home(request):
     uname = request.session.get("username")
     fimg = request.session.get("profilepic")
     ele = {
-        "element": Blogs.objects.all().order_by("date_of_post").reverse(),
+        "element": UBlog.objects.all(),
         "tORf": tORf,
         "uname": uname,
         "pic":fimg,
@@ -60,9 +60,9 @@ def login(request):
                 lname=userdata.last_name
                 email=userdata.email
                 phone=userdata.phone_number
-            print("You Logged In!!")
+                usersName=userdata.user_name
             request.session["tORf"] = True  
-            request.session["username"] = Username
+            request.session["username"] = usersName
             request.session["profilepic"] = pro_pic
             request.session["frist_name"] = fname
             request.session["last_name"] = lname
@@ -81,8 +81,9 @@ def Dblog(request,link):
     tORf = request.session.get("tORf")
     uname = request.session.get("username")
     fimg = request.session.get("profilepic")
+
     ele={
-        "element":Blogs.objects.get(A_slug=link),
+        "element":UBlog.objects.get(A_slugUserBlog=link),
         "tORf": tORf,
         "uname": uname,
         "pic":fimg,
@@ -92,13 +93,15 @@ def Dblog(request,link):
 
 def search(request):
     s=""
-    data=Blogs.objects.all()
+    data=UBlog.objects.all()
     tORf = request.session.get("tORf")
     uname = request.session.get("username")
     fimg = request.session.get("profilepic")
+    # fname = request.session.get("frist_name")
+    # lname = request.session.get("last_name")
     if request.method=="GET":
         s=request.GET.get("usearch")
-        data=Blogs.objects.filter(titel__icontains=s)
+        data=UBlog.objects.filter(Utitel__icontains=s)
         ele={
             "data":data,
             "tORf": tORf,
@@ -109,7 +112,7 @@ def search(request):
     return render(request,"search.html",ele)
 
 def blog(request):
-    data=Blogs.objects.all()
+    data=UBlog.objects.all()
     page=Paginator(data,1)
     x=request.GET.get("page")
     filan=page.get_page(x)
@@ -117,6 +120,9 @@ def blog(request):
     tORf = request.session.get("tORf")
     uname = request.session.get("username")
     fimg = request.session.get("profilepic")
+    
+    fname = request.session.get("frist_name")
+    lname = request.session.get("last_name")
     
     co=page.num_pages
     
@@ -126,6 +132,7 @@ def blog(request):
         "tORf": tORf,
         "uname": uname,
         "pic":fimg,
+        "fulname":fname+" "+lname,
     }
     return render(request,"allblogs.html",ele)
 
@@ -141,7 +148,8 @@ def myprofile(request):
     email = request.session.get("email")
     phone = request.session.get("phone_num")
     
-    sblog=Blogs.objects.all()
+    
+    sblog=UBlog.objects.filter(Uname__iexact=uname)
     
     ele={
         "tORf": tORf,
@@ -155,6 +163,43 @@ def myprofile(request):
     }
     
     return render(request,"Uprofile.html",ele)
+
+
+def postblog(request):
+    tORf = request.session.get("tORf")
+    fname = request.session.get("frist_name")
+    lname = request.session.get("last_name")
+    fimg = request.session.get("profilepic")
+    uname = request.session.get("username")
+    fn = fname+" "+lname
+    if request.method == "POST":
+        titel = request.POST.get("blogtitel")
+        blog_txt = request.POST.get("blogtxt")
+        blog_image = request.FILES.get("blogimg")
+        blog_date = request.POST.get("blogdate")
+        blog_category = request.POST.get("blogcategory")
+        
+        
+        UblogDATA = UBlog(
+            Utitel=titel,
+            Upost_blog=blog_txt,
+            Upost_image=blog_image,
+            Udate_of_post=blog_date,
+            Upost_category=blog_category,
+            Uproimage=fimg,  
+            Uname=uname,
+            UFname=fn,
+        )
+        UblogDATA.save()
+
+    ele = {
+        "tORf": tORf,
+        "fulname": f"{fname} {lname}",
+        "pic": fimg,
+    }
+    
+    return render(request, "postBlog.html", ele)
+
 
 def logout(request):
     request.session.flush()

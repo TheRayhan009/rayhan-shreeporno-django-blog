@@ -121,12 +121,186 @@ Home-Page
         font-size: 30px;
     }
     
+      #hero {
+        padding: 80px 0;
+        min-height: 700px;
+        position: relative;
+      }
+      
+      .date {
+        display: inline-block;
+        font-size: 18px;
+        color: #818181;
+      }
+      
+      .tags .badge-light{
+        background-color: #EDEDED;
+        color: #555;
+        font-weight: normal;
+      }
+      
+      #hero {
+        padding: 80px 0;
+        min-height: 700px;
+        position: relative;
+      }
+      
+      .date {
+        display: inline-block;
+        font-size: 18px;
+        color: #818181;
+      }
+      
+      .tags .badge-light{
+        background-color: #EDEDED;
+        color: #555;
+        font-weight: normal;
+      }
+      
+      .hero-img-container {
+        position: absolute;
+        left: 0px;
+        padding: 0;
+      }
+      
+      .hero-img {
+        max-width: 540px !important;
+        height: 540px;
+        overflow: hidden;
+        border-radius: 100%;
+      }
+      
+      .hero-img img {
+        width: 100%;
+        height: auto;
+      }
+      
+      .hero-title {
+        background-color: #FCFAFA;
+        border-radius: 150px;
+        padding: 25px 60px;
+        padding-right: 10px;
+        margin-top: 95px;
+        font-family: 'Playfair display'
+      }
+      
+      .hero-title h1 {
+        font-size: 60px;
+        font-weight: bold;
+        line-height: 70px;
+        color: #000;
+        text-decoration: none;
+        transition: 500ms;
+      
+      }
+      .hero-title a h1:hover {
+        transform: scale(1.01);
+      }
+      
+      .hero-meta p {
+        font-size: 22px;
+        line-height: 30px;
+        color: #404040;
+      }
+      
+      .author-img , .author-meta{
+        display: inline-block;
+        vertical-align: top;
+      }
+      .author-img {
+        margin-right: 10px;
+        width: 60px;
+        height: 60px;
+        border-radius: 100px;
+        overflow: hidden;
+      }
+      
+      .author-img img{
+        max-width: 100%;
+        height: auto;
+      }
+      
+      .author-meta span{ 
+        display: block;
+      }
+      
+      .author-name {
+        font-size: 18px;
+        margin-top: 5px;
+        font-weight: bold;
+      }
+      
+      .author-tag {
+        font-size: 14px;
+        color: #818181;
+      }
+      
+      #typed-text {
+        border-right: 0.15em solid #000; 
+        white-space: nowrap;
+        overflow: hidden; 
+        display: inline-block;
+        font-family: 'Playfair Display', serif;
+        font-size: 60px;
+        font-weight: bold;
+        color: #000;
+        animation: blink-caret 0.75s step-end infinite;
+    }
+    
+    @keyframes blink-caret {
+        from, to {
+            border-color: transparent;
+        }
+        50% {
+            border-color: black;
+        }
+    }
+    
 </style>
 {% endblock css %}
 
 {% csrf_token %}
 
 {% block main-body %}
+
+
+<div class="container-fluid" id="header">
+	
+	  <!-- hero section -->
+	  <div class="container" id="hero">
+	  	<div class="row justify-content-end">
+	  		<div class="col-lg-6 hero-img-container">
+	  			<a href="./single.html" class="a1">
+	  			<div class="hero-img">
+	  				<img src="/static/1.jpeg">
+	  			</div>
+	  			</a>
+	  		</div>	  		
+
+	  		<div class="col-lg-9">
+	  			<div class="hero-title">
+	  				<a href="./single.html">
+	  				<h1><span id="typed-text">Hello, Welcome To RayBlogs</span></h1>
+	  				</a>
+	  			</div>
+
+	  		</div>
+
+	  		<div class="col-lg-6">
+	  			<div class="hero-meta">
+	  				<p>Herself of that similar live good up which is are to for French endeavours, screen.</p>
+	  				<div class="author">
+	  					<div class="author-img"><img src="./img/author-img.png"></div>
+	  					<div class="author-meta">
+	  					<span class="author-name">Celeste Connell</span>
+	  					<span class="author-tag">Travel Blogger</span>
+	  					</div>	
+	  				</div>
+	  			</div>
+	  		</div>
+	  	</div>
+	  </div>
+</div>
   
 <div class="container mt-100 mt-60">
   <div class="row">
@@ -140,31 +314,34 @@ Home-Page
 
 <div class="container mt-100 mt-60">
   <div class="row">
-    {% for item in element|slice:"0:10" %}
+    {% for item in element|slice:"0:12" %}
+    
       <div class="col-lg-4 col-md-6 mt-4 pt-2">
           <div class="blog-post rounded border">
               <div class="blog-img d-block overflow-hidden position-relative">
-                  <img src="media/{{item.post_image}}" class="img-fluid rounded-top" alt="" >
+                  <img src="/media/{{item.Upost_image}}" class="img-fluid rounded-top" alt="" >
                   <div class="overlay rounded-top bg-dark" ></div>
               </div>
               <div class="content p-3">
-                  <small class="text-muted p float-right">{{item.date_of_post}}</small>
-                  <small><a href="javascript:void(0)" class="text-primary">{{item.post_category}}</a></small>
-                  <h4 class="mt-2"><a href="/blog/{{item.A_slug}}" class="text-dark title"><h5>{{item.titel|slice:":30"}}....</h5></a></h4>
-                  <p class="text-muted mt-2">{{item.post_blog|slice:"0:35"}}<b style="color:rgb(4, 0, 255);">....</b></p>
+                  <small class="text-muted p float-right">{{item.Udate_of_post}}</small>
+                  <small><a href="javascript:void(0)" class="text-primary">{{item.Upost_category}}</a></small>
+                  <h4 class="mt-2"><a href="/blog/{{item.A_slugUserBlog}}" class="text-dark title"><h5>{{item.Utitel|slice:":30"}}....</h5></a></h4>
+                  <p class="text-muted mt-2">{{item.Upost_blog|slice:"0:35"}}<b style="color:rgb(4, 0, 255);">....</b></p>
                   <div class="pt-3 mt-3 border-top d-flex">
-                      <img src="{{item.post_user_image}}" class="img-fluid avatar avatar-ex-sm rounded-pill mr-3 shadow" alt="">
+                      <img src="{{item.Uproimage}}" class="img-fluid avatar avatar-ex-sm rounded-pill mr-3 shadow" alt="">
                       <div class="author mt-2">
-                          <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark name">{{item.post_user_name}}</a></h6>
+                          <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark name">{{item.UFname}}</a></h6>
                       </div>
                   </div>
               </div>
           </div><!--end blog post-->
       </div><!--end col-->
+
+
       {% endfor %}
 </div>
 
 
-
+<script src="/static/home.js"></script>
 
 {% endblock main-body %}

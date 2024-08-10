@@ -136,18 +136,18 @@ Blogs
       <div class="col-lg-4 col-md-6 mt-4 pt-2">
           <div class="blog-post rounded border">
               <div class="blog-img d-block overflow-hidden position-relative">
-                  <img src="/media/{{item.post_image}}" class="img-fluid rounded-top" alt="" >
+                  <img src="/media/{{item.Upost_image}}" class="img-fluid rounded-top" alt="" >
                   <div class="overlay rounded-top bg-dark" ></div>
               </div>
               <div class="content p-3">
-                  <small class="text-muted p float-right">{{item.date_of_post}}</small>
-                  <small><a href="javascript:void(0)" class="text-primary">{{item.post_category}}</a></small>
-                  <h4 class="mt-2"><a href="/blog/{{item.A_slug}}" class="text-dark title"><h5>{{item.titel|slice:":30"}}....</h5></a></h4>
-                  <p class="text-muted mt-2">{{item.post_blog|slice:"0:35"}}<b style="color:rgb(4, 0, 255);">....</b></p>
+                  <small class="text-muted p float-right">{{item.Udate_of_post}}</small>
+                  <small><a href="javascript:void(0)" class="text-primary">{{item.Upost_category}}</a></small>
+                  <h4 class="mt-2"><a href="/blog/{{item.A_slugUserBlog}}" class="text-dark title"><h5>{{item.Utitel|slice:":30"}}....</h5></a></h4>
+                  <p class="text-muted mt-2">{{item.Upost_blog|slice:"0:35"}}<b style="color:rgb(4, 0, 255);">....</b></p>
                   <div class="pt-3 mt-3 border-top d-flex">
-                      <img src="{{item.post_user_image}}" class="img-fluid avatar avatar-ex-sm rounded-pill mr-3 shadow" alt="">
+                      <img src="{{item.Uproimage}}" class="img-fluid avatar avatar-ex-sm rounded-pill mr-3 shadow" alt="">
                       <div class="author mt-2">
-                          <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark name">{{item.post_user_name}}</a></h6>
+                          <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark name">{{item.UFname}}</a></h6>
                       </div>
                   </div>
               </div>
@@ -162,7 +162,7 @@ Blogs
       <li class="page-item">
         <a class="page-link" href="/blog/?page={{element.previous_page_number}}" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
-          <span class="sr-only">Previous</span>
+        Previous</span>
         </a>
       </li>
       {% endif %}
@@ -173,7 +173,7 @@ Blogs
       <li class="page-item">
         <a class="page-link" href="/blog/?page={{element.next_page_number}}" aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
-          <span class="sr-only">Next</span>
+          Next</span>
         </a>
       </li>
       {% endif %}
