@@ -134,6 +134,11 @@ Sign In
                             <input type="tel" class="form-control" id="phoneNumber" placeholder="Phone Number" name="phone">
                         </div>
                     </div>
+                    {% if chak %}
+                    <div class="alert alert-danger" role="alert">
+                        This Username Alrady Taken.
+                      </div>
+                      {% endif %}
                     <div class="form-group">
                         <div class="col-sm-12">
                             <input type="text" class="form-control" id="username" placeholder="Username" name="Uname">

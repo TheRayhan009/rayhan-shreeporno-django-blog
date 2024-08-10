@@ -31,6 +31,7 @@ def home(request):
 def signin(request):
     
     if request.method=="POST":
+        chak=False
         fname=request.POST.get("fristname")
         lname=request.POST.get("lastname")
         email=request.POST.get("email")
@@ -38,10 +39,16 @@ def signin(request):
         Username=request.POST.get("Uname")
         password=request.POST.get("pass")
         imageuserup=request.FILES.get("upimg")
-        Updata=Users(first_name=fname,last_name=lname,email=email,phone_number=phone_num,user_name=Username,password=password,USER_image=imageuserup)
-        Updata.save()
-        
-        return HttpResponseRedirect("/login")
+        if Users.objects.filter(user_name=Username):
+            chak=True
+            data={
+                "chak":chak,
+            }
+            return render(request,"signin.html",data)
+        else:
+            Updata=Users(first_name=fname,last_name=lname,email=email,phone_number=phone_num,user_name=Username,password=password,USER_image=imageuserup)
+            Updata.save()
+            return HttpResponseRedirect("/login")
         
     return render(request,"signin.html")
 
