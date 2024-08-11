@@ -107,7 +107,12 @@
     .comment-reply .list-inline li a {
         font-size: 13px;
     }
-    
+
+    .right-box {
+        position: sticky;
+        top: 0;
+    }
+
     @media (max-width: 640px) {
         .blog-page .left-box .single-comment-box > ul > li {
             padding: 25px 0;
@@ -117,132 +122,107 @@
         .blog-page .single_post .footer {
             padding: 30px;
         }
+
+        .right-box {
+            position: relative;
+        }
     }
 
 </style>
 
 {% endblock css %}
 
-
-
 {% block main-body %}
 
 <div id="main-content" class="blog-page">
-        <div class="container">
-            <div class="row clearfix">
-                <div class="col-lg-8 col-md-12 left-box">
-                    <div class="card single_post">
-                        <div class="body">
-                            <div class="img-post">
-                                <img class="d-block img-fluid" src="/media/{{element.post_image}}" alt="First slide">
-                            </div>
-                            <h3>{{element.titel}}</h3>
-                            <p>{{element.post_blog}}</p>
-                        </div>                        
-                    </div>
-                    <div class="card">
-                            <div class="header">
-                                <h2>Comments 3</h2>
-                            </div>
-                            <div class="body">
-                                <ul class="comment-reply list-unstyled">
-                                    <li class="row clearfix">
-                                        <div class="icon-box col-md-2 col-4"><img class="img-fluid img-thumbnail" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Awesome Image"></div>
-                                        <div class="text-box col-md-10 col-8 p-l-0 p-r0">
-                                            <h5 class="m-b-0">Gigi Hadid </h5>
-                                            <p>Why are there so many tutorials on how to decouple WordPress? how fast and easy it is to get it running (and keep it running!) and its massive ecosystem. </p>
-                                            <ul class="list-inline">
-                                                <li><a href="javascript:void(0);">Mar 09 2018</a></li>
-                                                <li><a href="javascript:void(0);">Reply</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li class="row clearfix">
-                                        <div class="icon-box col-md-2 col-4"><img class="img-fluid img-thumbnail" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Awesome Image"></div>
-                                        <div class="text-box col-md-10 col-8 p-l-0 p-r0">
-                                            <h5 class="m-b-0">Christian Louboutin</h5>
-                                            <p>Great tutorial but few issues with it? If i try open post i get following errors. Please can you help me?</p>
-                                            <ul class="list-inline">
-                                                <li><a href="javascript:void(0);">Mar 12 2018</a></li>
-                                                <li><a href="javascript:void(0);">Reply</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li class="row clearfix">
-                                        <div class="icon-box col-md-2 col-4"><img class="img-fluid img-thumbnail" src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="Awesome Image"></div>
-                                        <div class="text-box col-md-10 col-8 p-l-0 p-r0">
-                                            <h5 class="m-b-0">Kendall Jenner</h5>
-                                            <p>Very nice and informative article. In all the years I've done small and side-projects as a freelancer, I've ran into a few problems here and there.</p>
-                                            <ul class="list-inline">
-                                                <li><a href="javascript:void(0);">Mar 20 2018</a></li>
-                                                <li><a href="javascript:void(0);">Reply</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>                                        
-                            </div>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-lg-8 col-md-12 left-box">
+                <div class="card single_post">
+                    <div class="body">
+                        <div class="img-post">
+                            <img class="d-block img-fluid" src="/media/{{element.Upost_image}}" alt="First slide">
                         </div>
-                        <div class="card">
-                            <div class="header">
-                                <h2>Leave a reply <small>Your email address will not be published. Required fields are marked*</small></h2>
-                            </div>
-                            <div class="body">
-                                <div class="comment-form">
-                                    <form class="row clearfix">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Your Name">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Email Address">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <textarea rows="4" class="form-control no-resize" placeholder="Please type what you want..."></textarea>
-                                            </div>
-                                            <button type="submit" class="btn btn-block btn-primary">SUBMIT</button>
-                                        </div>                                
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                        <h3>{{element.Utitel}}</h3>
+                        <p>{{element.Upost_blog}}</p>
+                    </div>                        
                 </div>
-                <div class="col-lg-4 col-md-12 right-box">
-                    
-                    <div class="card">
-                        <div class="header">
-                            <h2>Popular Posts</h2>                        
-                        </div>
-                        <div class="body widget popular-post">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="single_post">
-                                        <p class="m-b-0">Apple Introduces Search Ads Basic</p>
-                                        <span>jun 22, 2018</span>
-                                        <div class="img-post">
-                                            <img src="https://www.bootdey.com/image/280x280/87CEFA/000000" alt="Awesome Image">                                        
-                                        </div>                                            
+
+                <div class="card">
+                    <div class="header">
+                        <h2>Leave a reply</h2>
+                    </div>
+                    <div class="body">
+                        <div class="comment-form">
+                            <form class="row clearfix" method="post" action="" enctype="multipart/form-data" role="form">
+                                {% csrf_token %}
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <textarea name="Ucomment" rows="6" class="form-control no-resize" placeholder="Please type what you want..."></textarea>
                                     </div>
-                                    <div class="single_post">
-                                        <p class="m-b-0">new rules, more cars, more races</p>
-                                        <span>jun 8, 2018</span>
-                                        <div class="img-post">
-                                            <img src="https://www.bootdey.com/image/280x280/87CEFA/000000" alt="Awesome Image">                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    <button type="submit" class="btn btn-block btn-primary">SUBMIT</button>
+                                </div>                                
+                            </form>
                         </div>
                     </div>
-                    
-                    
+                </div>
+
+                <div class="card">
+                    <div class="header">
+                        <h2>Comments ({{com | length}})</h2>
+                    </div>
+                    {% for item in com %}
+                    <div class="body">
+                        <ul class="comment-reply list-unstyled">
+                            <li class="row clearfix">
+                                <div class="icon-box col-md-2 col-4">
+                                    <img class="img-fluid img-thumbnail" src="{{item.Ucomment_image.url}}" alt="Awesome Image">
+                                </div>
+                                <div class="text-box col-md-10 col-8 p-l-0 p-r0">
+                                    <h5 class="m-b-0">{{item.PURname}}</h5>
+                                    <p>{{item.Ucomment}}</p>
+                                    <ul class="list-inline">
+                                        <li><a href="javascript:void(0);">{{item.UPdate}}</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    {% empty %}
+                    <h6>No Comment Have.</h6>
+                    {% endfor %}
                 </div>
             </div>
 
+            <div class="col-lg-4 col-md-12 right-box">
+                <div class="card">
+                    <div class="header">
+                        <h2>Popular Posts</h2>                        
+                    </div>
+                    <div class="body widget popular-post">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="single_post">
+                                    <p class="m-b-0">Apple Introduces Search Ads Basic</p>
+                                    <span>jun 22, 2018</span>
+                                    <div class="img-post">
+                                        <img src="https://www.bootdey.com/image/280x280/87CEFA/000000" alt="Awesome Image">                                        
+                                    </div>                                            
+                                </div>
+                                <div class="single_post">
+                                    <p class="m-b-0">new rules, more cars, more races</p>
+                                    <span>jun 8, 2018</span>
+                                    <div class="img-post">
+                                        <img src="https://www.bootdey.com/image/280x280/87CEFA/000000" alt="Awesome Image">                                            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 
 {% endblock main-body %}

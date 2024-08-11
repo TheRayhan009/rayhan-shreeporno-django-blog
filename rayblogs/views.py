@@ -4,6 +4,7 @@ from blogs.models import Blogs
 from django.core.paginator import Paginator
 from signin.models import Users
 from userBlogs.models import UBlog
+from comments.models import Comment
 
 
 # def all(request):
@@ -20,7 +21,7 @@ def home(request):
     uname = request.session.get("username")
     fimg = request.session.get("profilepic")
     ele = {
-        "element": UBlog.objects.all(),
+        "element": UBlog.objects.all().order_by("Udate_of_post").reverse(),
         "tORf": tORf,
         "uname": uname,
         "pic":fimg,
@@ -88,12 +89,23 @@ def Dblog(request,link):
     tORf = request.session.get("tORf")
     uname = request.session.get("username")
     fimg = request.session.get("profilepic")
-
+    UPcomment=request.POST.get("Ucomment")
+    fname = request.session.get("frist_name")
+    lname = request.session.get("last_name")
+    PTslug=UBlog.objects.get(A_slugUserBlog=link).A_slugUserBlog
+    CUimage=fimg[6:]
+    if request.method=="POST":
+        Sdata=Comment(Ucomment=UPcomment,UPBslug=PTslug,Ucomment_image=CUimage,PURname=f"{fname} {lname}")
+        Sdata.save()
+    comments = comments = Comment.objects.filter(UPBslug=PTslug)
+    comments=comments[::-1]
+        
     ele={
         "element":UBlog.objects.get(A_slugUserBlog=link),
         "tORf": tORf,
         "uname": uname,
         "pic":fimg,
+        "com":comments
     }
     return render(request,"Dblog.html",ele)
 
