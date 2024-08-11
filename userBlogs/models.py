@@ -13,3 +13,4 @@ class UBlog(models.Model):
     UFname = models.CharField(max_length=100,default=None,null=True)
     
     A_slugUserBlog=AutoSlugField(populate_from='Utitel',unique=True,null=True,default=None)
+    
