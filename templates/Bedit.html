@@ -1,0 +1,167 @@
+{% extends "all.html" %}
+
+{% block titel %}
+Post-Blog
+{% endblock titel %}
+
+{% block css %}
+<style>
+  .container {
+    max-width: 800px;
+    margin: auto;
+  }
+
+  .input-group-text {
+    font-weight: bold;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+  }
+
+  .input-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-control {
+    border-radius: .25rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .file-input {
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+  }
+
+  .datepicker-container {
+    margin-top: 1rem;
+  }
+
+  .datepicker-input {
+    display: flex;
+    align-items: center;
+  }
+
+  .input-group-append {
+    cursor: pointer;
+  }
+
+  .btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: #fff;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
+  }
+
+  .btn-info:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+  }
+
+  .btn-info:focus, .btn-info.focus {
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 156, 0.5);
+  }
+
+  textarea.form-control {
+    height: 444px;
+    resize: vertical;
+  }
+
+  .form-group label {
+    font-weight: bold;
+    margin-bottom: .5rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: #000;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid #17a2b8;
+    padding-bottom: 0.5rem;
+  }
+
+  .current-image {
+    margin-bottom: 1rem;
+  }
+
+  .current-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: .25rem;
+  }
+
+</style>
+{% endblock css %}
+
+{% block main-body %}
+
+<h1>Edit Your Valuable Blog</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container my-4">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Title</span>
+            </div>
+            <input name="blogtitel" type="text" class="form-control"
+                placeholder="Enter your blog title"
+                aria-describedby="basic-addon1" value="{{ blog_data.Utitel }}">
+        </div>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Write Blog</span>
+            </div>
+            <textarea name="blogtxt" class="form-control" aria-label="With textarea">{{ blog_data.Upost_blog }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleFormControlFile1">Blog Image</label>
+            <div class="current-image">
+                <span class="input-group-text">Current Image</span>
+                <img src="{{ blog_data.Upost_image.url }}" alt="Current Image">
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Choose New Image</span>
+                </div>
+                <input name="blogimg" type="file" class="form-control file-input" id="exampleFormControlFile1">
+            </div>
+        </div>
+
+        <div class="form-group datepicker-container">
+            <label for="date">Date</label>
+            <div class="input-group datepicker-input">
+                <input name="blogdate" type="text" class="form-control" id="date"
+                    placeholder="Select date" readonly value="{{ blog_data.Udate_of_post }}" />
+                <div class="input-group-append">
+                    <span class="input-group-text bg-light"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Post Category</span>
+            </div>
+            <input name="blogcategory" type="text" class="form-control" placeholder="Enter post category"
+                aria-describedby="basic-addon1" value="{{ blog_data.Upost_category }}">
+        </div>
+
+        <button type="submit" class="btn btn-info">
+            <span class="glyphicon glyphicon-share-alt"></span> Submit
+        </button>
+    </div>
+</form>
+
+<script src="/static/postBlog.js"></script>
+
+{% endblock main-body %}

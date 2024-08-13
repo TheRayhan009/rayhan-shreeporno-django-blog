@@ -333,7 +333,7 @@ My-Profile
             <div class="row">
                 <div class="col-6 col-lg-3">
                     <div class="count-data text-center">
-                        <h6 class="count h2" data-to="500" data-speed="500">500</h6>
+                        <h6 class="count h2" data-to="500" data-speed="500">{{num_of_blogs}}</h6>
                         <p class="m-0px font-w-600">Total Blogs</p>
                     </div>
                 </div>
@@ -371,7 +371,7 @@ My-Profile
                 </div>
                 <div class="content p-3">
                     <small class="text-muted p float-right">{{item.Udate_of_post}}</small>
-                    <small><a href="javascript:void(0)" class="text-primary">{{Uitem.Upost_category}}</a></small>
+                    <small><a href="javascript:void(0)" class="text-primary">{{item.Upost_category}}</a></small>
                     <h4 class="mt-2"><a href="/blog/{{item.A_slugUserBlog}}" class="text-dark title"><h5>{{item.Utitel|slice:":30"}}....</h5></a></h4>
                     <p class="text-muted mt-2">{{item.Upost_blog|slice:"0:35"}}<b style="color:rgb(4, 0, 255);">....</b></p>
                     <div class="pt-3 mt-3 border-top d-flex">
@@ -380,6 +380,7 @@ My-Profile
                             <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark name">{{item.UFname}}</a></h6>
                         </div>
                     </div>
+                    <small style="margin-left: 80%;"><a href="/edit/{{item.A_slugUserBlog}}" class="text-primary">edit</a></small>
                 </div>
             </div><!--end blog post-->
         </div><!--end col-->

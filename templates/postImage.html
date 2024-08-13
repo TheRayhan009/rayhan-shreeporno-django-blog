@@ -1,0 +1,111 @@
+{% extends "all.html" %}
+{% block titel %}
+Post Image
+{% endblock titel %}
+
+{% block css %}
+
+<style>
+    .img-user {
+        width: 350px;
+        height: 200px;
+    }
+    
+    .jumbotron {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 300px;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    
+    .form-content {
+        width: 100%;
+    }
+
+    .form-container {
+        border: 2px solid #5bc0de;
+        border-radius: 10px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .file-input {
+        border: 2px solid #ddd;
+        padding: 10px;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+        cursor: pointer;
+    }
+
+    .file-input:hover {
+        border-color: #007bff;
+        background-color: #f0f8ff;
+    }
+
+    .col-sm-12 {
+        width: 100%;
+        padding: 0;
+    }
+</style>
+
+{% endblock css %}
+
+{% block main-body %}
+{% load static %}
+
+<div class="jumbotron">
+    <div class="form-container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <img src="https://bootdey.com/img/Content/Manbrown2.png" class="img-responsive center-block img-user mb-4"> 
+            </div>
+            <div class="col-md-12 form-content">
+                <form class="form-horizontal" role="form" method="post" action="/postimage/" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group text-center">
+                        <div class="col-sm-12">
+                            <span class="fa fa-upload fa-2x">Upload Image</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label for="title">Enter Title</label>
+                            <input type="text" class="form-control" id="title" placeholder="Title" name="title">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label for="imageUpload">Upload an Image</label>
+                            <input name="image" type="file" class="form-control file-input" id="imageUpload">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-info">
+                                <span class="glyphicon glyphicon-upload"></span>
+                                Upload
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main-body %}

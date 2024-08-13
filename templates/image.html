@@ -1,0 +1,206 @@
+{% extends "all.html" %}
+{% block titel %}
+Image Gallery
+{% endblock titel %}
+
+{% block css %}
+
+<style>
+    body {
+        background-color: #f1f5f9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .image-item {
+        flex: 1 1 auto;
+        box-sizing: border-box;
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #f9f9f9;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        animation: fadeIn 0.6s ease-in-out;
+    }
+
+    .image-item:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .info-section {
+        width: 100%;
+        padding: 10px;
+        background: #f1f5f9;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-end;
+        border-top: 1px solid #ddd;
+        animation: slideUp 0.4s ease-in-out;
+        min-height: 80px;
+    }
+
+    .info-section h6 {
+        font-size: 16px;
+        margin: 0 0 10px 0;
+        color: #333;
+        flex: 1;
+        width: 100%;
+    }
+
+    .info-details {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .reaction-buttons {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .reaction-buttons button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        color: #555;
+        font-size: 14px;
+        transition: color 0.3s ease;
+    }
+
+    .reaction-buttons button:hover {
+        color: #333;
+    }
+
+    .reaction-buttons i {
+        margin-right: 5px;
+    }
+
+    .info-details .date {
+        font-size: 12px;
+        color: #777;
+        margin-right: -500px;
+    }
+
+    .info-details .by-label {
+        font-size: 12px;
+        color: #555;
+        margin-right: -510px;
+    }
+
+    .info-details .user-info {
+        display: flex;
+        align-items: center;
+        margin-right: 15px;
+    }
+
+    .user-info img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 5px;
+        border: 2px solid #ddd;
+    }
+
+    .user-info .username {
+        font-size: 14px;
+        color: #333;
+        font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+        .image-item {
+            flex: 1 1 calc(50% - 20px);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .image-item {
+            flex: 1 1 100%;
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+</style>
+
+{% endblock css %}
+
+{% block main-body %}
+
+<div class="container">
+    <div class="image-grid">
+
+        {% for item in ImageData %}
+        <div class="image-item">
+            <img src="/media/{{item.UPimage}}" alt="Boat on Calm Water" />
+            <div class="info-section">
+                <h6>{{item.UPtitel}}</h6>
+                <div class="info-details">
+                    <div class="reaction-buttons">
+                        <form method="get">dc 
+                        <button type="button">
+                            <i class="fas fa-thumbs-up" ></i> Like 100
+                        </button>
+                    </form>
+                        <button>
+                            <i class="fas fa-thumbs-down"></i> Dislike 100
+                        </button>
+                    </div>
+                    <span class="date"><h6>{{item.Pdate}}</h6></span>
+                    <span class="by-label"><h6>By</h6></span>
+                    <div class="user-info">
+                        <img src="/media/{{item.PUimage}}" alt="User Image" />
+                        <span class="username">{{item.PUname}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock main-body %}

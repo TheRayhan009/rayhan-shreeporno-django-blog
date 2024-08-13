@@ -191,7 +191,7 @@ Home-Page
         color: #000;
         text-decoration: none;
         transition: 500ms;
-      
+        
       }
       .hero-title a h1:hover {
         transform: scale(1.01);
@@ -237,16 +237,26 @@ Home-Page
       
       #typed-text {
         border-right: 0.15em solid #000; 
-        white-space: nowrap;
+
         overflow: hidden; 
-        display: inline-block;
+
         font-family: 'Playfair Display', serif;
         font-size: 60px;
         font-weight: bold;
         color: #000;
         animation: blink-caret 0.75s step-end infinite;
     }
-    
+    #typed-text {
+      border-right: 0.15em solid #000; 
+
+      overflow: hidden; 
+
+      font-family: 'Playfair Display', serif;
+      font-size: 60px;
+      font-weight: bold;
+      color: #000;
+      animation: blink-caret 0.75s step-end infinite;
+  }
     @keyframes blink-caret {
         from, to {
             border-color: transparent;
@@ -255,6 +265,91 @@ Home-Page
             border-color: black;
         }
     }
+
+    @media only screen and (max-width: 768px) {
+    
+      #hero {
+          padding: 40px 0;
+          min-height: 700px;
+      }
+
+      .hero-img-container {
+          position: relative;
+          text-align: center;
+          margin-bottom: 20px;
+      }
+      
+      .hero-title {
+          margin-top: 50px;
+      }
+      
+      .hero-meta {
+          text-align: center;
+          padding-top: 20px;
+      }
+      
+      .hero-meta p {
+          font-size: 20px;
+          line-height: 28px;
+      }
+      
+      .author {
+          display: block;
+          text-align: center;
+          margin-top: 20px;
+      }
+      
+      .author-name {
+          font-size: 18px;
+      }
+      
+      .author-tag {
+          font-size: 14px;
+      }
+  
+      .container.mt-100.mt-60 {
+          margin-top: 60px !important;
+      }
+  
+      .blog-post .content h4, .blog-post .content h5 {
+          font-size: 18px;
+      }
+  
+      .blog-post .content .title {
+          font-size: 16px;
+      }
+  
+      .blog-post .content p {
+          font-size: 14px;
+      }
+  
+      .blog-post .content .author .name {
+          font-size: 16px;
+      }
+  
+      .blog-post .blog-img img {
+          max-height: 250px;
+          min-height: 250px;
+      }
+  }
+  @media only screen and (max-width: 768px) {
+    #typed-text {
+      border-right: 0.15em solid #000; 
+
+      overflow: hidden; 
+
+      font-family: 'Playfair Display', serif;
+      font-size: 60px;
+      font-weight: bold;
+      color: #000;
+      animation: blink-caret 0.75s step-end infinite;
+    }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: black; }
+}
     
 </style>
 {% endblock css %}
@@ -272,7 +367,7 @@ Home-Page
 	  		<div class="col-lg-6 hero-img-container">
 	  			<a href="/" class="a1">
 	  			<div class="hero-img">
-	  				<img src="/static/1.jpeg">
+	  				<img src="/static/home.png">
 	  			</div>
 	  			</a>
 	  		</div>	  		

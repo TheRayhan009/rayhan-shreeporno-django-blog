@@ -126,6 +126,9 @@
         .right-box {
             position: relative;
         }
+    }.h6, h6 {
+        font-size: 1rem;
+        text-align: center;
     }
 
 </style>
@@ -154,7 +157,7 @@
                     </div>
                     <div class="body">
                         <div class="comment-form">
-                            <form class="row clearfix" method="post" action="" enctype="multipart/form-data" role="form">
+                            <form class="row clearfix" method="post" action="/blog/{{element.A_slugUserBlog}}" enctype="multipart/form-data" role="form">
                                 {% csrf_token %}
                                 <div class="col-sm-12">
                                     <div class="form-group">
@@ -189,7 +192,7 @@
                         </ul>
                     </div>
                     {% empty %}
-                    <h6>No Comment Have.</h6>
+                    <h6><br>No Comment Have.</h6>
                     {% endfor %}
                 </div>
             </div>
