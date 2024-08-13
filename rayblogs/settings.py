@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     "blogs",
     "signin",
     "userBlogs",
-    "comments"
+    "comments",
+    "UserImages",
 ]
 
 MIDDLEWARE = [

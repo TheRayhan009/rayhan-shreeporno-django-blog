@@ -5,6 +5,9 @@ from django.core.paginator import Paginator
 from signin.models import Users
 from userBlogs.models import UBlog
 from comments.models import Comment
+from UserImages.models import UPImage
+from datetime import datetime
+
 
 
 # def all(request):
@@ -132,7 +135,7 @@ def search(request):
 
 def blog(request):
     data=UBlog.objects.all()
-    page=Paginator(data,1)
+    page=Paginator(data,12)
     x=request.GET.get("page")
     filan=page.get_page(x)
     
@@ -169,6 +172,7 @@ def myprofile(request):
     
     
     sblog=UBlog.objects.filter(Uname__iexact=uname)
+    num_of_blogs=len(sblog)
     
     ele={
         "tORf": tORf,
@@ -179,6 +183,8 @@ def myprofile(request):
         "email":email,
         "phone":phone,
         "blogs":sblog,
+        "num_of_blogs":num_of_blogs,
+        
     }
     
     return render(request,"Uprofile.html",ele)
@@ -215,9 +221,100 @@ def postblog(request):
         "tORf": tORf,
         "fulname": f"{fname} {lname}",
         "pic": fimg,
+        "uname":uname,
     }
     
     return render(request, "postBlog.html", ele)
+
+
+def image(request):
+    tORf = request.session.get("tORf")
+    fname = request.session.get("frist_name")
+    lname = request.session.get("last_name")
+    fimg = request.session.get("profilepic")
+    uname = request.session.get("username")
+    
+    ele = {
+        "tORf": tORf,
+        "fulname": f"{fname} {lname}",
+        "pic": fimg,
+        "uname":uname,
+        "ImageData":UPImage.objects.all(),
+    }
+    
+    return render(request,"image.html",ele)
+    
+def postimage(request):
+    tORf = request.session.get("tORf")
+    fname = request.session.get("frist_name")
+    lname = request.session.get("last_name")
+    fimg = request.session.get("profilepic")
+    uname = request.session.get("username")
+    CUimage=fimg[6:]
+    if request.method=="POST":
+        Uimg = request.FILES.get("image")
+        Utitel=request.POST.get("title")
+        Udata=UPImage(
+            UPimage=Uimg,
+            UPtitel=Utitel,
+            PUimage=CUimage,
+            PUname=f"{fname} {lname}",
+        )
+        Udata.save()
+    
+    ele = {
+        "tORf": tORf,
+        "fulname": f"{fname} {lname}",
+        "pic": fimg,
+        "uname":uname,
+    }
+    
+    return render(request,"postImage.html",ele)
+
+
+def edit(request,link):
+    tORf = request.session.get("tORf")
+    fname = request.session.get("frist_name")
+    lname = request.session.get("last_name")
+    fimg = request.session.get("profilepic")
+    uname = request.session.get("username")
+    
+    blog_data=UBlog.objects.get(A_slugUserBlog=link)
+    
+    if request.method=="POST":
+        titel = request.POST.get("blogtitel")
+        blog_txt = request.POST.get("blogtxt")
+        blog_image = request.FILES.get("blogimg")
+        blog_date = request.POST.get("blogdate")
+        print(blog_date)
+        if "." in blog_date:
+            date_object = datetime.strptime(blog_date, "%b. %d, %Y")
+        else:
+            date_object = datetime.strptime(blog_date, "%B %d, %Y")
+            print("sec")
+        blog_date = date_object.strftime("%Y-%m-%d")
+        blog_category = request.POST.get("blogcategory")
+        
+        blog_data.Utitel=titel
+        blog_data.Upost_blog=blog_txt
+        if blog_image:
+            blog_data.Upost_image=blog_image
+        blog_data.Udate_of_post=blog_date
+        blog_data.Upost_category=blog_category
+
+        blog_data.save()
+        return redirect(f"/blog/{link}")
+        
+    ele = {
+        "tORf": tORf,
+        "fulname": f"{fname} {lname}",
+        "pic": fimg,
+        "uname":uname,
+        "blog_data":blog_data,
+        
+    }
+    
+    return render(request,"Bedit.html",ele)
 
 
 def logout(request):
