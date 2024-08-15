@@ -7,8 +7,8 @@ from userBlogs.models import UBlog
 from comments.models import Comment
 from UserImages.models import UPImage
 from datetime import datetime
-
-
+from likes.models import Likes
+from dislikes.models import DisLikes
 
 # def all(request):
 #     tORf = request.session.get("tORf", False)
@@ -172,8 +172,14 @@ def myprofile(request):
     
     
     sblog=UBlog.objects.filter(Uname__iexact=uname)
+    simg=UPImage.objects.filter(PUname__iexact=fname+" "+lname)
+    tliks=0
+    tdisliks=0
+    for e in simg:
+        tliks+=e.Plikes
+        tdisliks+=e.Pdislikes
+        
     num_of_blogs=len(sblog)
-    
     ele={
         "tORf": tORf,
         "uname": uname,
@@ -184,7 +190,9 @@ def myprofile(request):
         "phone":phone,
         "blogs":sblog,
         "num_of_blogs":num_of_blogs,
-        
+        "images":simg,
+        "likes":tliks,
+        "dislike":tdisliks,
     }
     
     return render(request,"Uprofile.html",ele)
@@ -239,7 +247,7 @@ def image(request):
         "fulname": f"{fname} {lname}",
         "pic": fimg,
         "uname":uname,
-        "ImageData":UPImage.objects.all(),
+        "ImageData":UPImage.objects.all().order_by("Pdate").reverse(),
     }
     
     return render(request,"image.html",ele)
@@ -286,12 +294,10 @@ def edit(request,link):
         blog_txt = request.POST.get("blogtxt")
         blog_image = request.FILES.get("blogimg")
         blog_date = request.POST.get("blogdate")
-        print(blog_date)
         if "." in blog_date:
             date_object = datetime.strptime(blog_date, "%b. %d, %Y")
         else:
             date_object = datetime.strptime(blog_date, "%B %d, %Y")
-            print("sec")
         blog_date = date_object.strftime("%Y-%m-%d")
         blog_category = request.POST.get("blogcategory")
         
@@ -316,6 +322,103 @@ def edit(request,link):
     
     return render(request,"Bedit.html",ele)
 
+def delete(request,link):
+    tORf = request.session.get("tORf")
+    fname = request.session.get("frist_name")
+    lname = request.session.get("last_name")
+    fimg = request.session.get("profilepic")
+    uname = request.session.get("username")
+    
+    blog_data=UBlog.objects.get(A_slugUserBlog=link)
+    
+    if request.method=="POST":
+        userIsSure=request.POST.get("sure")
+        userIsNotSure=request.POST.get("notsure")
+        if "sure" in request.POST:
+            blog_data.delete()
+            return redirect(f"/myprofile/")
+        elif "notsure" in request.POST:
+            return redirect(f"/myprofile/")
+        
+    ele = {
+        "tORf": tORf,
+        "fulname": f"{fname} {lname}",
+        "pic": fimg,
+        "uname":uname,
+        
+    }
+    
+    return render(request,"delete.html",ele)
+
+def like(request,link):
+    tORf = request.session.get("tORf")
+    fname = request.session.get("frist_name")
+    lname = request.session.get("last_name")
+    fimg = request.session.get("profilepic")
+    uname = request.session.get("username")
+    DLUdata=DisLikes.objects.filter(UserName=uname,A_likeSlug=link)
+    LUdata=Likes.objects.filter(UserName=uname,A_likeSlug=link)
+    imgdata=UPImage.objects.get(A_imageSlug=link)
+    if LUdata.exists():
+        imgdata.Plikes=imgdata.Plikes - 1
+        LUdata.delete()
+        imgdata.save()
+    else:
+        if DLUdata.exists():
+            imgdata.Pdislikes=imgdata.Pdislikes - 1
+            DLUdata.delete()
+            data=Likes(
+            UserName=uname,
+            A_likeSlug=link,
+            )
+            data.save()
+            imgdata.Plikes=imgdata.Plikes + 1
+            imgdata.save()
+        else:
+            data=Likes(
+            UserName=uname,
+            A_likeSlug=link,
+            )
+            data.save()
+            imgdata.Plikes=imgdata.Plikes + 1
+            imgdata.save()
+    
+    return redirect("/image")
+
+def dislike(request,link):
+    tORf = request.session.get("tORf")
+    fname = request.session.get("frist_name")
+    lname = request.session.get("last_name")
+    fimg = request.session.get("profilepic")
+    uname = request.session.get("username")
+    LUdata=Likes.objects.filter(UserName=uname,A_likeSlug=link)
+    DLUdata=DisLikes.objects.filter(UserName=uname,A_likeSlug=link)
+    imgdata=UPImage.objects.get(A_imageSlug=link)
+    if DLUdata.exists():
+        imgdata.Pdislikes=imgdata.Pdislikes - 1
+        DLUdata.delete()
+        imgdata.save()
+    else:
+        if LUdata.exists():
+            imgdata.Plikes=imgdata.Plikes - 1
+            LUdata.delete()
+            data=DisLikes(
+            UserName=uname,
+            A_likeSlug=link,
+            )
+            data.save()
+            imgdata.Pdislikes=imgdata.Pdislikes + 1
+            imgdata.save()
+        else:
+            data=DisLikes(
+            UserName=uname,
+            A_likeSlug=link,
+            )
+            data.save()
+            imgdata.Pdislikes=imgdata.Pdislikes + 1
+            imgdata.save()
+    
+    return redirect("/image")
 
 def logout(request):
     request.session.flush()

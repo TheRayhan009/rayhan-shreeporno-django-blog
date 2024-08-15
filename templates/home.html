@@ -350,7 +350,16 @@ Home-Page
     from, to { border-color: transparent; }
     50% { border-color: black; }
 }
-    
+  
+#Urnmae {
+  text-decoration: none; 
+  color: inherit;
+}
+
+#Urnmae:hover {
+  text-decoration: none; 
+}
+
 </style>
 {% endblock css %}
 
@@ -367,15 +376,15 @@ Home-Page
 	  		<div class="col-lg-6 hero-img-container">
 	  			<a href="/" class="a1">
 	  			<div class="hero-img">
-	  				<img src="/static/home.png">
+	  				<img src="/static/home2.png">
 	  			</div>
 	  			</a>
 	  		</div>	  		
 
 	  		<div class="col-lg-9">
 	  			<div class="hero-title">
-	  				<a href="./#LatestBlogs">
-	  				<h1><span id="typed-text">Hello, Welcome To RayBlogs</span></h1>
+	  				<a href="./#LatestBlogs" id="Urnmae">
+	  				<h1><span id="typed-text" >Hello, Welcome To RayBlogs</span></h1>
 	  				</a>
 	  			</div>
 
@@ -420,12 +429,12 @@ Home-Page
               <div class="content p-3">
                   <small class="text-muted p float-right">{{item.Udate_of_post}}</small>
                   <small><a href="javascript:void(0)" class="text-primary">{{item.Upost_category}}</a></small>
-                  <h4 class="mt-2"><a href="/blog/{{item.A_slugUserBlog}}" class="text-dark title"><h5>{{item.Utitel|slice:":30"}}....</h5></a></h4>
+                  <h4 class="mt-2"><a href="/blog/{{item.A_slugUserBlog}}" class="text-dark title" id="Urnmae"><h5>{{item.Utitel|slice:":25"}}....</h5></a></h4>
                   <p class="text-muted mt-2">{{item.Upost_blog|slice:"0:35"}}<b style="color:rgb(4, 0, 255);">....</b></p>
                   <div class="pt-3 mt-3 border-top d-flex">
                       <img src="{{item.Uproimage}}" class="img-fluid avatar avatar-ex-sm rounded-pill mr-3 shadow" alt="">
                       <div class="author mt-2">
-                          <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark name">{{item.UFname}}</a></h6>
+                          <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark name" id="Urnmae">{{item.UFname}}</a></h6>
                       </div>
                   </div>
               </div>

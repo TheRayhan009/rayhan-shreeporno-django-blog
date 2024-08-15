@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "userBlogs",
     "comments",
     "UserImages",
+    "likes",
+    "dislikes",
 ]
 
 MIDDLEWARE = [

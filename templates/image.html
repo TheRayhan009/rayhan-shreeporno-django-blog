@@ -162,7 +162,24 @@ Image Gallery
             transform: translateY(0);
             opacity: 1;
         }
-    }
+    }#Urnmae {
+        text-decoration: none; 
+        color: inherit;
+        color: black;
+      }
+      
+      #Urnmae:hover {
+        text-decoration: none; 
+      }
+      #Urnmae2 {
+        text-decoration: none; 
+        color: inherit;
+        color: blue;
+      }
+      
+      #Urnmae2:hover {
+        text-decoration: none; 
+      }
 </style>
 
 {% endblock css %}
@@ -176,17 +193,29 @@ Image Gallery
         <div class="image-item">
             <img src="/media/{{item.UPimage}}" alt="Boat on Calm Water" />
             <div class="info-section">
-                <h6>{{item.UPtitel}}</h6>
+                <h6 name="titel">{{item.UPtitel}}</h6>
                 <div class="info-details">
                     <div class="reaction-buttons">
-                        <form method="get">dc 
-                        <button type="button">
-                            <i class="fas fa-thumbs-up" ></i> Like 100
-                        </button>
-                    </form>
-                        <button>
-                            <i class="fas fa-thumbs-down"></i> Dislike 100
-                        </button>
+                        {% if item.Plikes %}
+                        <a class="like-button" href="/like/{{item.A_imageSlug}}" id="Urnmae2">
+                            <i class="fas fa-thumbs-up"></i> Like {{item.Plikes}}
+                        </a>
+                        {% else %}
+                        <a class="like-button" href="/like/{{item.A_imageSlug}}" id="Urnmae">
+                            <i class="fas fa-thumbs-up"></i> Like {{item.Plikes}}
+                        </a>
+                        {% endif %}
+                        
+                        {% if item.Pdislikes %}
+                        <a class="dislike-button" href="/dislike/{{item.A_imageSlug}}" id="Urnmae2" >
+                            <i class="fas fa-thumbs-down"></i> Dislike {{item.Pdislikes}}
+                        </a>
+                        
+                        {% else %}
+                        <a class="dislike-button" href="/dislike/{{item.A_imageSlug}}" id="Urnmae" >
+                            <i class="fas fa-thumbs-down"></i> Dislike {{item.Pdislikes}}
+                        </a>
+                        {% endif %}
                     </div>
                     <span class="date"><h6>{{item.Pdate}}</h6></span>
                     <span class="by-label"><h6>By</h6></span>
@@ -202,5 +231,38 @@ Image Gallery
 
     </div>
 </div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Restore scroll position
+        if (sessionStorage.getItem('scrollPos')) {
+            window.scrollTo(0, sessionStorage.getItem('scrollPos'));
+            sessionStorage.removeItem('scrollPos');  // Clear after restoring
+        }
+        
+        // Capture scroll position before liking
+        document.querySelectorAll('.like-button').forEach(button => {
+            button.addEventListener('click', function () {
+                sessionStorage.setItem('scrollPos', window.scrollY);
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Restore scroll position
+        if (sessionStorage.getItem('scrollPos')) {
+            window.scrollTo(0, sessionStorage.getItem('scrollPos'));
+            sessionStorage.removeItem('scrollPos');  // Clear after restoring
+        }
+        
+        // Capture scroll position before liking
+        document.querySelectorAll('.dislike-button').forEach(button => {
+            button.addEventListener('click', function () {
+                sessionStorage.setItem('scrollPos', window.scrollY);
+            });
+        });
+    });
+</script>
 
 {% endblock main-body %}

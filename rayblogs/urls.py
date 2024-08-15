@@ -3,7 +3,7 @@ from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -19,5 +19,8 @@ urlpatterns = [
     path('image/', views.image, name='image'),
     path('postimage/', views.postimage, name='postimage'),
     path('edit/<slug:link>', views.edit, name='edit'),
+    path('delete/<slug:link>', views.delete, name='delete'),
+    path('like/<slug:link>', views.like, name='like'),
+    path('dislike/<slug:link>', views.dislike, name='dislike'),
     # path('profile/<str:username>/', views.profile, name='profile'),
-] + staticfiles_urlpatterns()
+] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
